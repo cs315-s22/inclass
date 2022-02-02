@@ -6,9 +6,9 @@
 @ r1 is b
 @ C paramters go left-to-right into r0-r3
 add2_s:
-    mul r0, r0, r1  @ r0 = r0 + r1
+    add r0, r0, r1  @ r0 = r0 + r1
 
-    @ add
-    @ sub 
+    @ mul r0, r1, r2
+    @ sub r0, r1, r2
     
     bx lr

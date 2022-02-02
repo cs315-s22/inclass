@@ -12,7 +12,7 @@ int main(int argc, char **argv) {
     int c_result = add2_c(a, b);
     int s_result = add2_s(a, b);
 
-    printf("C: %d Asm: %d\n", c_result, s_result);
+    printf("C: %d, Asm: %d\n", c_result, s_result);
     
     return 0;
 }
