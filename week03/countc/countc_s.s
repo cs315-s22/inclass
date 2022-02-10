@@ -32,6 +32,31 @@ done_loop:
 
 .global count_char_s
 
+@ r0 is char we want to count
+@ r1 is the string
+@ r2 is the length
+
 count_char_s:
-	mov r0, #0
+	sub sp, sp, #16		@ prologue
+	str r0, [sp]		@ preserves c across calls to find_char_index_s
+	str lr, [sp, #4]	@ preserve lr
+	str r4, [sp, #8]	@ preserve r4
+
+	mov r3, r2			@ r3 is length
+	mov r2, #0			@ r2 is start
+	mov r4, #0			@ r4 is count
+	
+count_loop:
+	bl find_char_index_s
+	cmp r0, #-1
+	beq count_done
+	add r4, r4, #1 		@ count += 1
+	add r2, r0, #1 		@ start = r + 1
+	ldr r0, [sp]		@ restore c into r0
+	b count_loop
+count_done:
+	mov r0, r4			@ set up count rv
+	ldr r4, [sp, #8]	@ restore r4
+	ldr lr, [sp, #4]	@ restore lr
+	add sp, sp, #16		@ deallocate stack space
 	bx lr
